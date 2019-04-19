@@ -63,7 +63,7 @@ namespace MyShop.WebUI.Controllers
                 ProductManagerVM vm = new ProductManagerVM();
                 vm.Product = product;
                 vm.ProductCategories = productCategories.Collection();
-                return View(product);
+                return View(vm);
             }
         }
 
