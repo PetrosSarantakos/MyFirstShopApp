@@ -2,9 +2,11 @@ using MyShop.Core.Contracts;
 using MyShop.Core.Models;
 using MyShop.DataAccess.InMemory;
 using MyShop.DataAccess.SQL;
+using MyShop.WebUI.Controllers;
 using System;
 
 using Unity;
+using Unity.Injection;
 
 namespace MyShop.WebUI
 {
@@ -18,6 +20,7 @@ namespace MyShop.WebUI
           new Lazy<IUnityContainer>(() =>
           {
               var container = new UnityContainer();
+              container.RegisterType<AccountController>(new InjectionConstructor());
               RegisterTypes(container);
               return container;
           });
