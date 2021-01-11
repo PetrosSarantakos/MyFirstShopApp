@@ -10,7 +10,7 @@ using System.Web;
 
 namespace MyShop.Services
 {
-    public class BasketService
+    public class BasketService:IBasketService
     {
         private IRepository<Product> _productContext;
         private IRepository<Basket> _basketContext;
@@ -42,6 +42,13 @@ namespace MyShop.Services
                     {
                         basket = CreateNewBasket(httpContext);
                     }
+                }
+            }
+            else
+            {
+                if (createIfNull)
+                {
+                    basket = CreateNewBasket(httpContext);
                 }
             }
 
