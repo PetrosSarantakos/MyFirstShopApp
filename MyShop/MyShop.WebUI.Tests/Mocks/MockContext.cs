@@ -3,32 +3,24 @@ using MyShop.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Caching;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyShop.DataAccess.InMemory
+namespace MyShop.WebUI.Tests.Mocks
 {
-    public class InMemoryRepository<T> : IRepository<T> where T:BaseEntity
+    public class MockContext<T> : IRepository<T> where T:BaseEntity
     {
-        ObjectCache cache = MemoryCache.Default;
         List<T> items;
         string className;
 
-        public InMemoryRepository()
+        public MockContext()
         {
-            className = typeof(T).Name;
-            items = cache[className] as List<T>;
-
-            if (items==null)
-            {
-                items = new List<T>();
-            }
+            items = new List<T>();
         }
 
         public void Commit()
         {
-            cache[className] = items;
+            return;
         }
 
         public void Insert(T t)
@@ -40,7 +32,7 @@ namespace MyShop.DataAccess.InMemory
         {
             T tToUpdate = items.Find(i => i.Id == t.Id);
 
-            if(tToUpdate!=null)
+            if (tToUpdate != null)
             {
                 tToUpdate = t;
             }
@@ -53,7 +45,7 @@ namespace MyShop.DataAccess.InMemory
         public T Find(string id)
         {
             T t = items.Find(i => i.Id == id);
-            if (t!=null)
+            if (t != null)
             {
                 return t;
             }
@@ -72,7 +64,7 @@ namespace MyShop.DataAccess.InMemory
         {
             T tToDelete = items.Find(i => i.Id == id);
 
-            if(tToDelete!=null)
+            if (tToDelete != null)
             {
                 items.Remove(tToDelete);
             }
