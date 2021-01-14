@@ -24,34 +24,31 @@
     </tr>
 
 @foreach (var item in Model) {
-<tr>
-    <td>
-        <img style="height:50px" class="img" src="~/Content/ProductImages/@item.ImageURL" />
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ProductName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Quantity)
-    </td>
-    <td>
-        @string.Format("{0:c}", item.Price)
-    </td>
-    <td>
-        @string.Format("{0:c}", item.Price * item.Quantity)
-    </td>
-    <td>
-        <a href="@Url.Action("RemoveFromBasket", "Basket", new { Id = item.Id })" class="btn btn-danger">Delete</a>
-    </td>
-</tr>
+    <tr>
+        <td>
+            <img style="height:50px" class="img" src="~/Content/ProductImages/@item.ImageURL" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @string.Format("{0:c}", item.Price)
+        </td>
+        <td>
+            @string.Format("{0:c}", item.Price * item.Quantity)
+        </td>
+        <td>
+            <a href="@Url.Action("RemoveFromBasket", "Basket", new { Id = item.Id })" class="btn btn-danger">Delete</a>
+        </td>
+    </tr>
 }
-<tr>
-    <td colspan="4" style="text-align:right">
-        <strong>Basket Total</strong>
-    </td>
-    <td colspan="4" style="text-align:right">
-        @string.Format("{0:c}",(from p in Model select p.Price *p.Quantity).Sum())
-    </td>
-</tr>
+    <tr>        
+        <td colspan="4" style="text-align:right"><strong>Basket Total</strong></td>
+        <td> @string.Format("{0:c}", (from p in Model select p.Price * p.Quantity).Sum())</td>
+        <td><a href="@Url.Action("Checkout","Basket")">Checkout</a></td>
+    </tr>
 
 </table>
